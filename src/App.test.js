@@ -14,16 +14,21 @@ describe('App Component', () => {
     let wrapper;
     beforeEach(() => {
         const initialState = {
-            items: [{
-                title: 'Example title 1',
-                body: 'Some text'
-            }, {
-                title: 'Example title 2',
-                body: 'Some text'
-            }, {
-                title: 'Example title 3',
-                body: 'Some text'
-            }]
+            data: {
+                items: [{
+                    title: 'Example title 1',
+                    body: 'Some text'
+                }, {
+                    title: 'Example title 2',
+                    body: 'Some text'
+                }, {
+                    title: 'Example title 3',
+                    body: 'Some text'
+                }],
+                user: {
+                    login: 'brunoBrian'
+                }
+            },
         }
         wrapper = setUp(initialState);
     });
