@@ -9,3 +9,5 @@ Within this project you will find examples of testing:
 * Action creators and reducers
 * Complex action creators that use Redux Thunk and Axios
 * Action creators called from connected components
+
+https://www.youtube.com/watch?v=1cnfbcwkoeg&list=TLPQMDYwNDIwMjDn3iAM6TSxSg&index=3&t=1s
