@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { fetchPosts } from './actions';
 import { fetchUser} from './actions/getUser';
 import './app.scss';
+import Images from  './component/images';
 
 /* This const is not used within our app.
    Although we are passing it to the Headline Component
@@ -66,6 +67,7 @@ class App extends Component {
       <div className="App" data-test="appComponent">
         <Header />
         <section className="main">
+          <Images />
           <Headline header="Posts" desc="Click the button to render posts!" tempArr={tempArr} />
           <h2>Bem vindo @{user.login}</h2>
           
