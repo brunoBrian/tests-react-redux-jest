@@ -3,12 +3,14 @@ import {mount, shallow} from 'enzyme';
 import Images from './';
 import axios from 'axios'
 import { act } from 'react-dom/test-utils';
+import { findByTestAtrr } from './../../../Utils';
 
 jest.mock('axios');
 
 describe('Test Images', () => {
     it('Should not fetch data and return 0 images and 0 errors', async () => {
-        const component = await shallow(<Images />);
+        const wrapper = shallow(<Images />);
+        const component = findByTestAtrr(wrapper, 'imageComponent');
 
         expect(component.find('img').length).toBe(0);
         expect(component.find('p').length).toBe(0);
