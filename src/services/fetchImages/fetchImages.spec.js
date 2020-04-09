@@ -53,7 +53,11 @@ describe('Test fetch success', () => {
   it('Should return error 400', async () => {
     const mock400 = {
       status: 400,
-      response: { data: 'Request failed' }
+      response: { 
+        data: {
+          errors: ['Request failed']
+        }
+      }
     };
 
     moxios.wait(() => {
@@ -61,17 +65,18 @@ describe('Test fetch success', () => {
         request.reject(mock400);
     });
 
-
-    const result = await fetchImages();
-
-    expect(result.status).toBe(mock400.status);
-    expect(result.response.data).toBe(mock400.response.data);
+    const errorMessage = await fetchImages();
+    expect(errorMessage).toBe(mock400.response.data.errors[0]);
   });
 
   it('Should return error 401', async () => {
     const mock401 = {
       status: 401,
-      response: { data: 'Unauthorized' }
+      response: { 
+        data: {
+          errors: ['Unauthorized']
+        }
+      }
     };
 
     moxios.wait(() => {
@@ -79,12 +84,10 @@ describe('Test fetch success', () => {
         request.reject(mock401);
     });
 
-
     const { result } = renderHook(async () => await fetchImages());
     const response = await result.current;
 
-    expect(response.status).toBe(mock401.status);
-    expect(response.response.data).toBe(mock401.response.data);
+    expect(response).toBe(mock401.response.data.errors[0]);
     expect(response.error).toBeUndefined();
   });
 });

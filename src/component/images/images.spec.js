@@ -7,13 +7,39 @@ import { act } from 'react-dom/test-utils';
 jest.mock('axios');
 
 describe('Test Images', () => {
-    it('Should not fetch data and return 0 images', async () => {
+    it('Should not fetch data and return 0 images and 0 errors', async () => {
         const component = await shallow(<Images />);
+
         expect(component.find('img').length).toBe(0);
+        expect(component.find('p').length).toBe(0);
     });
 
-    it('renders hello correctly', async () => {
+    it('renders fetch error correctly', async () => {
         const mockRequest = {
+            status: 401,
+            response: {
+                data: {
+                    errors: ['Unauthorized'],
+                }
+            }
+        };
+        axios.get.mockRejectedValue(mockRequest);
+        const component = mount(<Images />);
+
+        await act(async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            component.update();
+        });
+        
+        const error = component.find('h3');
+
+        expect(error.length).toBe(1);
+        expect(error.text()).toBe(`Erro: ${mockRequest.response.data.errors[0]}`);
+  });
+
+    it('renders fetch success correctly', async () => {
+        const mockRequest = {
+            status: 200,
             data:{
                 results: [
                     {
@@ -56,7 +82,5 @@ describe('Test Images', () => {
         })
         expect(images.length).toBe(2);
         expect(likes.length).toBe(2);
-        
   });
-    
 })

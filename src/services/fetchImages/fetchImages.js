@@ -11,8 +11,8 @@ const fetchImages = async term => {
         });
 
         return response.data.results;
-    }catch (error) {
-        return error;
+    } catch (error) {
+        return error.response.data.errors[0];
     }
 };
 
